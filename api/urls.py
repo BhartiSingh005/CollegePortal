@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, StudentAcademicLogView
+from .views import PredictPlacementView, RegisterView, StudentAcademicLogView
 
 urlpatterns = [
     # 1. Signup Route
@@ -7,4 +7,7 @@ urlpatterns = [
     
     # 2. Dashboard Academic Metrics Route
     path('student/metrics/', StudentAcademicLogView.as_view(), name='student_metrics'),
+
+    # 3. Core Placement Prediction Gateway Endpoint
+    path('student/predict/', PredictPlacementView.as_view(), name='student_predict'),
 ]

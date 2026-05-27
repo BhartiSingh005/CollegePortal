@@ -29,3 +29,14 @@ class StudentPerformanceLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentPerformanceLog
         fields = ['id', 'student_username', 'cgpa', 'attendance_percentage', 'number_of_backlogs', 'coding_rating', 'semester', 'updated_at']
+
+
+# 3. Placement Prediction Logger Serializer
+class PlacementPredictionSerializer(serializers.ModelSerializer):
+    student_username = serializers.ReadOnlyField(source='student.username')
+
+    class Meta:
+        model = PlacementPrediction
+        fields = ['id', 'student_username', 'input_features', 'prediction_result', 'probability_score', 'predicted_at']
+
+

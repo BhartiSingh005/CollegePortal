@@ -83,3 +83,17 @@ class PredictPlacementView(APIView):
         # 5. Serialize data state and dispatch response package
         serializer = PlacementPredictionSerializer(prediction_instance)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+class PlacementPredictionHistoryView(APIView):
+    permission_classes = [IsAuthenticated] 
+
+    def get(self, request):
+        user = request.user
+        
+        # Fetch all prediction records matching the current logged-in user
+        predictions = PlacementPrediction.objects.filter(student=user).order_by('-predicted_at')
+        
+        # Serialize the query set (many=True handles a list of objects)
+        serializer = PlacementPredictionSerializer(predictions, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

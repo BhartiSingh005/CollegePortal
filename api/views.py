@@ -35,20 +35,28 @@ class PredictPlacementView(APIView):
         user = request.user
         data = request.data
 
-        # 1. Extract and sanitize input feature vectors from request payload
         try:
             cgpa = float(data.get('cgpa'))
             attendance = float(data.get('attendance_percentage'))
             backlogs = int(data.get('number_of_backlogs'))
             coding_rating = int(data.get('coding_rating'))
+            
+            if not (0.0 <= cgpa <= 10.0):
+                return Response({"error": "CGPA values must be between 0.0 and 10.0."}, status=status.HTTP_400_BAD_REQUEST)
+            if not (0.0 <= attendance <= 100.0):
+                return Response({"error": "Attendance percentage must be between 0.0 and 100.0."}, status=status.HTTP_400_BAD_REQUEST)
+            if backlogs < 0:
+                return Response({"error": "Number of backlogs cannot be negative."}, status=status.HTTP_400_BAD_REQUEST)
+            if not (1 <= coding_rating <= 5):
+                return Response({"error": "Coding platform rating must be on a scale of 1 to 5."}, status=status.HTTP_400_BAD_REQUEST)
+
         except (TypeError, ValueError):
             return Response(
                 {"error": "Invalid features data types provided. Ensure numeric formats."}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        # 2. Mock ML Pipeline Evaluation Algorithm
-        # Computes an integrated feature index score
+        
+        # 2. Mock ML Pipeline Evaluation Algo
         base_score = (cgpa * 10) + (attendance * 0.2) + (coding_rating * 5)
         penalty = (backlogs * 15)
         computed_metric = base_score - penalty

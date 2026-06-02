@@ -121,12 +121,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    #Global Exception Gateway Hardening
+    'EXCEPTION_HANDLER': 'api.exceptions.custom_api_exception_handler',
 }
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),

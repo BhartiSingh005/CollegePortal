@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollegePortal - AIML Predictive Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-area">
+            <h1>CollegePortal <span>AIML Engine</span></h1>
+        </div>
+        <div class="user-profile">
+            <span id="displayUsername">Loading Student...</span>
+            <button onclick="logout()" class="btn-secondary">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="card form-card">
+            <h3>Run Placement Prediction Pipeline</h3>
+            <form id="predictionForm">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="cgpa">Current CGPA (0.0 - 10.0)</label>
+                        <input type="number" id="cgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.50" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="attendance">Attendance % (0 - 100)</label>
+                        <input type="number" id="attendance" step="0.1" min="0" max="100" placeholder="e.g. 78.5" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="backlogs">Active Backlogs Count</label>
+                        <input type="number" id="backlogs" min="0" placeholder="e.g. 0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="codingRating">Coding Platform Rating (1 - 5)</label>
+                        <input type="number" id="codingRating" min="1" max="5" placeholder="e.g. 4" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-analytics">Execute Analytics Model</button>
+            </form>
+        </section>
+
+        <section class="card output-card">
+            <h3>Latest Model Assessment Result</h3>
+            <div id="predictionDisplay" class="result-placeholder">
+                <p>Submit your metrics vector on the left to fire up the pipeline prediction engine.</p>
+            </div>
+        </section>
+
+        <section class="card history-card">
+            <h3>Your Placement Analytics History Logs</h3>
+            <div class="table-wrapper">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Evaluation ID</th>
+                            <th>Features Profile Vector</th>
+                            <th>Classification Outcome</th>
+                            <th>Probability Confidence Score</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Loading execution records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        // Protect the dashboard route defensively
+        if (!localStorage.getItem('accessToken')) {
+            window.location.href = 'login.html';
+        } else {
+            // Initializing dashboard components
+            document.addEventListener("DOMContentLoaded", () => {
+                loadHistoryLogs();
+            });
+        }
+    </script>
+</body>
+</html>

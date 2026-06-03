@@ -1,6 +1,6 @@
-# CollegePortal - AIML Predictive Placement Dashboard
+# CareerLens - AIML Predictive Placement Dashboard
 
-CollegePortal is an industry-standard, full-stack enterprise web application designed to track student academic logs and predict placement likelihood using an Asynchronous AIML evaluation pipeline. The system utilizes a decoupled architecture featuring a robust Django REST Framework (DRF) backend secured by JWT authentication and a responsive, high-performance vanilla JavaScript frontend interface.
+CareerLens is an industry-standard, full-stack enterprise web application designed to track student academic logs and predict placement likelihood using an Asynchronous AIML evaluation pipeline. The system utilizes a decoupled architecture featuring a robust Django REST Framework (DRF) backend secured by JWT authentication and a responsive, high-performance vanilla JavaScript frontend interface.
 
 ## 🚀 Key Features
 
@@ -16,7 +16,7 @@ CollegePortal is an industry-standard, full-stack enterprise web application des
 ## 📂 System Architecture & Directory Structure
 
 ```text
-CollegePortal/
+CareerLens/
 │
 ├── core/                       # Core Django Framework Settings Root
 │   ├── __init__.py
